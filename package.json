@@ -1,5 +1,5 @@
 {
- "name": "nodemailer",
+ "name": "node-nodemailer",
  "version": "1.0.0",
  "description": "",
  "main": "index.js",
@@ -12,6 +12,8 @@
  "dependencies": {
   "body-parser": "^1.19.1",
   "cors": "^2.8.5",
-  "express": "^4.17.2"
+  "dotenv": "^14.3.2",
+  "express": "^4.17.2",
+  "nodemailer": "^6.7.2"
  }
 }
