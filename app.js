@@ -11,10 +11,13 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
+app.get("/", (req, res) => res.send({ status: 200 }));
+
 app.post("/", (req, res) => {
  const transporter = nodemailer.createTransport({
   host: process.env.SENDER_EMAIL_HOST,
   port: parseInt(process.env.SENDER_EMAIL_PORT),
+  secureConnection: false,
   auth: {
    user: process.env.SENDER_EMAIL_ADDRESS,
    pass: process.env.SENDER_EMAIL_PASSWORD,
@@ -39,8 +42,8 @@ app.post("/", (req, res) => {
  `;
 
  const options = {
-  from: `"${req.body.fullName}" <${req.body.email}`,
-  to: process.env.TO_EMAIL_ADDRESS,
+  from: `"${req.body.fullName}" <${process.env.SENDER_EMAIL_ADDRESS}>`,
+  to: `${process.env.TO_EMAIL_ADDRESS}, ${process.env.SENDER_EMAIL_ADDRESS}`,
   subject: "Message from Portfolio",
   text: textMsg,
   html: htmlMsg,
@@ -51,7 +54,7 @@ app.post("/", (req, res) => {
    console.log("Error sending a message from the contact form.", err);
    return res.send({ status: 500, message: "Unable to send the message." });
   }
-  console.log("sent mail", info.response);
+  console.log("Email sent.", info.response);
   return res.send({ status: 200, message: "Message sent successfully." });
  });
 });
