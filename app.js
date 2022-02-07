@@ -11,7 +11,7 @@ app.use(cors());
 
 app.use(bodyParser.json());
 
-app.get("/", (req, res) => res.send({ status: 200 }));
+app.get("/turnServerOn", (req, res) => res.send({ status: 200 }));
 
 app.post("/", (req, res) => {
  const transporter = nodemailer.createTransport({
